@@ -42,7 +42,7 @@ python build.py C notest
 
 if you want to skip the tests to speed things up.
 
-This generates an executable called `standalone`. It takes the maximum period length max_tau and the noise allowance sigma as an argument. The time series is read from STDIN.
+This generates an executable called `standalone`. It takes the maximum period length τ<sub>max</sub> and the noise allowance σ as an argument. The time series is read from STDIN.
 
 Take a look at `standalone.c` if you want to modify input and output.
 
