@@ -1,4 +1,4 @@
-This is an implementation of [arXiv:1506.01287](http://arxiv.org/abs/1506.01287).
+## This is an implementation of [arXiv:1506.01287](http://arxiv.org/abs/1506.01287).
 
 The following describes how to use this source depending on how you want to use it:
 
