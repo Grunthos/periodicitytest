@@ -1,4 +1,18 @@
-## This is an implementation of [arXiv:1506.01287](http://arxiv.org/abs/1506.01287).
+Quick and dirty introduction to usage
+=====================================
+
+For an extensive description and explanation, see [arXiv:1506.01287](http://arxiv.org/abs/1506.01287).
+
+Very briefly, this test decides whether a given time series can be interpolated by a periodic function with the same number of local extrema as the time series, where only local extrema with a prominence higher than a given error allowance σ are taken into account. The method also returns the period length. It is not intended for experimental but for simulated data.
+
+The method has two parameters that can be chosen straightforwardly:
+
+* The **maximum allowed period length τ<sub>max</sub>**: Choose this parameter reasonably low to limit the runtime and to avoid period lengths that are close to the length of the time series. Unless you know what you are doing, τ<sub>max</sub> should at least be half the length of the time series.
+
+* The **error allowance σ:** Choose this parameter to correspond to the maximum expected absolute numerical error of your simulation, e.g., the maximum absolute integration error of an adaptive integrator.
+
+Instructions for building
+=========================
 
 The following describes how to use this source depending on how you want to use it:
 
@@ -44,7 +58,7 @@ python build.py C notest
 
 if you want to skip the tests to speed things up.
 
-This generates an executable called `standalone`. It takes the maximum period length τ<sub>max</sub> and the noise allowance σ as an argument. The time series is read from STDIN.
+This generates an executable called `standalone`. It takes the maximum period length τ<sub>max</sub> and the error allowance σ as an argument. The time series is read from STDIN.
 
 Take a look at `standalone.c` if you want to modify input and output.
 
