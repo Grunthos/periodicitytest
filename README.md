@@ -19,21 +19,13 @@ The following describes how to use this source depending on how you want to use 
 A. As a Python module
 ---------------------
 
-Build the module by running
+Build and install the module by running (for example)
 
 ```sh
-python build.py Python
+python3 setup.py install --user
 ```
 
-or 
-
-```sh
-python build.py Python notest
-```
-
-if you want to skip the tests to speed things up.
-
-This generates a Python module file called `periodicitytest.so`, which contains one function called periodicitytest. It can be loaded, e.g., as follows:
+This generates a Python module called `periodicitytest`, which contains one function called `periodicitytest`. It can be loaded, e.g., as follows:
 
 ```python
 from periodicitytest import periodicitytest
@@ -47,18 +39,18 @@ B. As a standalone program
 Build the program by running
 
 ```sh
-python build.py C
+python3 setup_C.py
 ```
 
 or 
 
 ```sh
-python build.py C notest
+python3 setup_C.py test
 ```
 
-if you want to skip the tests to speed things up.
+if you want to run the tests.
 
-This generates an executable called `standalone`. It takes the maximum period length τ<sub>max</sub> and the error allowance σ as an argument. The time series is read from STDIN.
+This generates an executable called `periodicitytest` in the folder `bin`. It takes the maximum period length τ<sub>max</sub> and the error allowance σ as an argument. The time series is read from STDIN.
 
 Take a look at `standalone.c` if you want to modify input and output.
 
