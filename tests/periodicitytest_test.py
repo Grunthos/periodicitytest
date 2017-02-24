@@ -31,15 +31,17 @@ def contains_Interval (A, B):
 	return (A[0]*B[1] <= B[0]*A[1]) and (B[2]*A[3] <= A[2]*B[3])
 
 def nasty_function(t):
-#  A 2-pi-periodic function that looks like this:
-#   _         
-#  2 |  /|          /\    /|
-#   _| / |  __   __/  \__/ |  __
-#  1 |   | /  | /          | /
-#   _|   |/   |/           |/
-#  0 ---------------------------
-#        |        /\       |
-#        0        pi      2pi
+	"""
+	A 2-pi-periodic function that looks like this:
+	    _         
+	   2 |  /|          /\    /|
+	    _| / |  __   __/  \__/ |  __
+	   1 |   | /  | /          | /
+	    _|   |/   |/           |/
+	   0 ---------------------------
+	         |        /\       |
+	         0        pi      2pi
+	"""
 
 	x = 4/pi * (t%(2*pi))
 

@@ -124,9 +124,9 @@ static PyMethodDef periodicitytest_methods[] = {
 	{NULL, NULL, 0, NULL}
 };
 
-PyMODINIT_FUNC initperiodicitytest()
+PyMODINIT_FUNC init_periodicitytest()
 {
-	Py_InitModule("periodicitytest", periodicitytest_methods);
+	Py_InitModule("_periodicitytest", periodicitytest_methods);
 	import_array();
 }
 

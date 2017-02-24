@@ -1,8 +1,8 @@
 // Test the periodicity_test function from search.h
 
-# include "search.h"
-# include "basics.h"
-# include "interval.h"
+# include "../periodicitytest/search.h"
+# include "../periodicitytest/basics.h"
+# include "../periodicitytest/interval.h"
 # include "testfunctions.h"
 # include <math.h>
 # include <assert.h>

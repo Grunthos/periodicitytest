@@ -1,8 +1,8 @@
 // Tests the functions from extremcounting.h.
 
-# include "basics.h"
-# include "interval.h"
-# include "extremacounting.h"
+# include "../periodicitytest/basics.h"
+# include "../periodicitytest/interval.h"
+# include "../periodicitytest/extremacounting.h"
 # include "testfunctions.h"
 # include <math.h>
 # include <assert.h>
