@@ -19,13 +19,19 @@ The following describes how to use this source depending on how you want to use 
 A. As a Python module
 ---------------------
 
-Build and install the module by running (for example)
+The easiest way is arguably to have the package downloaded and installed by Pip, for example:
+
+```sh
+pip3 install periodicitytest
+```
+
+Otherwise, build and install the module by running (for example)
 
 ```sh
 python3 setup.py install --user
 ```
 
-This generates a Python module called `periodicitytest`, which contains one function called `periodicitytest`. It can be loaded, e.g., as follows:
+In both cases, you should end up with a Python module called `periodicitytest`, which contains one function called `periodicitytest`. It can be loaded, e.g., as follows:
 
 ```python
 from periodicitytest import periodicitytest
