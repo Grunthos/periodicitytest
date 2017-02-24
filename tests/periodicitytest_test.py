@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 # Tests the Python module.
-
+from __future__ import print_function, division
 from math import *
 import numpy as np
 from periodicitytest import periodicitytest
@@ -64,12 +64,12 @@ def test_half_timeseries_length (f):
 	max_n = 2000
 	
 	for n in np.random.randint(100, max_n, 10):
-		for period in np.random.uniform(n/2-1, n/2, 5):
+		for period in np.random.uniform(n//2-1, n//2, 5):
 			if is_problematic(period, n):
 				continue
-		
-			T = np.array(map(lambda i: f(i*2*pi/period), range(max_n)))
-		
+			
+			T = np.array(list(map(lambda i: f(i*2*pi/period), range(max_n))))
+			
 			result = pertest_noise_wrapper(T[:n], n-1)
 			assert result[0]
 			
@@ -83,7 +83,7 @@ def test_varying_periods (f):
 		if is_problematic(period, n):
 			continue
 		
-		T = np.array(map(lambda i: f(i*2*pi/period), range(n)))
+		T = np.array(list(map(lambda i: f(i*2*pi/period), range(n))))
 		
 		result = pertest_noise_wrapper(T[:n], n-1)
 		assert result[0]
@@ -94,7 +94,7 @@ def test_varying_periods (f):
 def test_random_timeseries ():
 	n = 1000
 	T = np.random.rand(n)
-	assert not pertest_noise_wrapper(T, n/2)[0]
+	assert not pertest_noise_wrapper(T, n//2)[0]
 
 def test_constant_timeseries ():
 	n = 1000
@@ -112,32 +112,32 @@ def test_period_k_timeseries (k):
 	
 	for n in np.random.randint(100,max_n,20):
 		np.random.shuffle(some_numbers)
-		T = np.array(map(lambda i: some_numbers[i%k], range(n)))
+		T = np.array(list(map(lambda i: some_numbers[i%k], range(n))))
 		result = pertest_noise_wrapper(T, n-1)
 		
 		assert result[0]
 		
 		def test(i):
 			if k%i==0:
-				return contains_Interval(result[1], (k/i,1,k/i,1))
+				return contains_Interval(result[1], (k//i,1,k/i,1))
 			else:
-				return contains_Interval(result[1], closest_fractions(k/float(i), n))
+				return contains_Interval(result[1], closest_fractions(k/i, n))
 		
 		assert any(test(i) for i in range(1,k))
 
 def test_varying_amplitude (f):
 	eps = 0.001
 	n = 10000
-	T = np.array( map(lambda i: (1+eps*i)*f(i), range(n)) )
+	T = np.array( list(map(lambda i: (1+eps*i)*f(i), range(n))) )
 	
-	assert not pertest_noise_wrapper(T,n/2)[0]
+	assert not pertest_noise_wrapper(T,n//2)[0]
 
 def test_varying_frequency (f):
 	eps = 0.00001
 	n = 10000
-	T = np.array( map(lambda i: f((1+eps*i)*i), range(n)) )
+	T = np.array( list(map(lambda i: f((1+eps*i)*i), range(n))) )
 	
-	assert not pertest_noise_wrapper(T,n/2)[0]
+	assert not pertest_noise_wrapper(T,n//2)[0]
 
 for nu in list(np.arange(0,0.1,0.02))+[1e-100]:
 	test_half_timeseries_length(sin)
@@ -147,7 +147,7 @@ for nu in list(np.arange(0,0.1,0.02))+[1e-100]:
 	test_half_timeseries_length(lambda x: x%(2*pi))
 	test_half_timeseries_length(lambda x: round(100*sin(x)))
 	test_half_timeseries_length(lambda x: sin(x)+sin(2*x))
-		
+	
 	test_varying_periods(sin)
 	test_varying_periods(cos)
 	test_varying_periods(lambda x: tan(x/2))
@@ -156,21 +156,21 @@ for nu in list(np.arange(0,0.1,0.02))+[1e-100]:
 	test_varying_periods(lambda x: x%(2*pi))
 	test_varying_periods(lambda x: round(100*sin(x)))
 	test_varying_periods(lambda x: sin(x)+sin(2*x))
-		
+	
 	test_random_timeseries()
-		
+	
 	test_constant_timeseries()
-		
+	
 	for k in range(2,20):
 		test_period_k_timeseries(20)
-		
+	
 	test_varying_amplitude(sin)
 	test_varying_amplitude(cos)
 	test_varying_amplitude(nasty_function)
 	test_varying_amplitude(lambda x: x%(2*pi))
 	test_varying_amplitude(lambda x: round(100*sin(x)))
 	test_varying_amplitude(lambda x: sin(x)+sin(2*x))
-		
+	
 	test_varying_frequency(sin)
 	test_varying_frequency(cos)
 	test_varying_frequency(nasty_function)

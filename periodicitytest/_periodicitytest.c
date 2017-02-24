@@ -91,10 +91,10 @@ static PyObject * py_periodicitytest(PyObject *self, PyObject *args)
 	if (is_periodic(result))
 	{
 		PyObject * result_interval = PyTuple_Pack (4,
-												PyInt_FromLong(result.p),
-												PyInt_FromLong(result.q),
-												PyInt_FromLong(result.r),
-												PyInt_FromLong(result.s));
+												PyLong_FromLong(result.p),
+												PyLong_FromLong(result.q),
+												PyLong_FromLong(result.r),
+												PyLong_FromLong(result.s));
 		PyObject * result_interval_2 = PyTuple_Pack (2,
 												PyFloat_FromDouble(result.p/((double) result.q)),
 												PyFloat_FromDouble(result.r/((double) result.s)));
@@ -103,10 +103,10 @@ static PyObject * py_periodicitytest(PyObject *self, PyObject *args)
 	else if (max_tau == length(T)-1)
 	{
 		PyObject * result_interval = PyTuple_Pack (4,
-												PyInt_FromLong(length(T)-1),
-												PyInt_FromLong(1),
-												PyInt_FromLong(1),
-												PyInt_FromLong(0));
+												PyLong_FromLong(length(T)-1),
+												PyLong_FromLong(1),
+												PyLong_FromLong(1),
+												PyLong_FromLong(0));
 		PyObject * result_interval_2 = PyTuple_Pack (2,
 												PyFloat_FromDouble((double) length(T)-1),
 												PyFloat_FromDouble(INFINITY));
@@ -124,9 +124,38 @@ static PyMethodDef periodicitytest_methods[] = {
 	{NULL, NULL, 0, NULL}
 };
 
+
+#if PY_MAJOR_VERSION >= 3
+
+static struct PyModuleDef moduledef =
+{
+        PyModuleDef_HEAD_INIT,
+        "_periodicitytest",
+        NULL,
+        -1,
+        periodicitytest_methods,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+};
+
+PyMODINIT_FUNC PyInit__periodicitytest(void)
+{
+	PyObject * module = PyModule_Create(&moduledef);
+	import_array();
+	return module;
+}
+
+#else
+
+#ifndef PyMODINIT_FUNC
+#define PyMODINIT_FUNC void
+#endif
 PyMODINIT_FUNC init_periodicitytest()
 {
 	Py_InitModule("_periodicitytest", periodicitytest_methods);
 	import_array();
 }
 
+#endif

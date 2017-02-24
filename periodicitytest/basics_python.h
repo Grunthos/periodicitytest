@@ -26,7 +26,11 @@ typedef double ValueType;
 # define TYPE_INDEX NPY_DOUBLE
 
 // Initialise and finalise the Python environment.
+#if PY_MAJOR_VERSION >= 3
+void * initialise();
+#else
 void initialise();
+#endif
 void finalise();
 
 typedef PyArrayObject * TimeSeries;

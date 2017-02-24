@@ -32,19 +32,28 @@ TimeSeries ts_crop (TimeSeries const T, IndexType const offset, IndexType const 
 	assert (offset+size<=length(T));
 	
 	PyObject * slice = PySlice_New (
-	                                PyInt_FromLong(offset),
-	                                PyInt_FromLong(size+offset),
-	                                PyInt_FromLong(1)
+	                                PyLong_FromLong(offset),
+	                                PyLong_FromLong(size+offset),
+	                                PyLong_FromLong(1)
 	                               );
 	
 	return (TimeSeries) PyObject_GetItem ((PyObject *) T, slice);
 }
 
+#if PY_MAJOR_VERSION >= 3
+void * initialise()
+{
+	Py_Initialize();
+	import_array();
+	return NULL;
+}
+#else
 void initialise()
 {
 	Py_Initialize();
 	import_array();
 }
+#endif
 
 void finalise()
 {
